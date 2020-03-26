@@ -117,32 +117,32 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 
 		children = append(children, &dtos.NavLink{Text: "Import", SubTitle: "Import dashboard from file or Grafana.com", Id: "import", Icon: "gicon gicon-dashboard-import", Url: setting.AppSubUrl + "/dashboard/import"})
 
-		data.NavTree = append(data.NavTree, &dtos.NavLink{
-			Text:       "Create",
-			Id:         "create",
-			Icon:       "fa fa-fw fa-plus",
-			Url:        setting.AppSubUrl + "/dashboard/new",
-			Children:   children,
-			SortWeight: dtos.WeightCreate,
-		})
+		//data.NavTree = append(data.NavTree, &dtos.NavLink{
+		//	Text:       "Create",
+		//	Id:         "create",
+		//	Icon:       "fa fa-fw fa-plus",
+		//	Url:        setting.AppSubUrl + "/dashboard/new",
+		//	Children:   children,
+		//	SortWeight: dtos.WeightCreate,
+		//})
 	}
 
-	dashboardChildNavs := []*dtos.NavLink{
-		{Text: "Home", Id: "home", Url: setting.AppSubUrl + "/", Icon: "gicon gicon-home", HideFromTabs: true},
-		{Text: "Divider", Divider: true, Id: "divider", HideFromTabs: true},
-		{Text: "Manage", Id: "manage-dashboards", Url: setting.AppSubUrl + "/dashboards", Icon: "gicon gicon-manage"},
-		{Text: "Playlists", Id: "playlists", Url: setting.AppSubUrl + "/playlists", Icon: "gicon gicon-playlists"},
-		{Text: "Snapshots", Id: "snapshots", Url: setting.AppSubUrl + "/dashboard/snapshots", Icon: "gicon gicon-snapshots"},
-	}
+	//dashboardChildNavs := []*dtos.NavLink{
+	//	{Text: "Home", Id: "home", Url: setting.AppSubUrl + "/", Icon: "gicon gicon-home", HideFromTabs: true},
+	//	{Text: "Divider", Divider: true, Id: "divider", HideFromTabs: true},
+	//	{Text: "Manage", Id: "manage-dashboards", Url: setting.AppSubUrl + "/dashboards", Icon: "gicon gicon-manage"},
+	//	{Text: "Playlists", Id: "playlists", Url: setting.AppSubUrl + "/playlists", Icon: "gicon gicon-playlists"},
+	//	{Text: "Snapshots", Id: "snapshots", Url: setting.AppSubUrl + "/dashboard/snapshots", Icon: "gicon gicon-snapshots"},
+	//}
 
 	data.NavTree = append(data.NavTree, &dtos.NavLink{
 		Text:       "Dashboards",
 		Id:         "dashboards",
 		SubTitle:   "Manage dashboards & folders",
 		Icon:       "gicon gicon-dashboard",
-		Url:        setting.AppSubUrl + "/",
+		Url:        setting.AppSubUrl + "/d/DbPMXklZk/open-connections",
 		SortWeight: dtos.WeightDashboard,
-		Children:   dashboardChildNavs,
+		//Children:   dashboardChildNavs,
 	})
 
 	if setting.ExploreEnabled && (c.OrgRole == m.ROLE_ADMIN || c.OrgRole == m.ROLE_EDITOR || setting.ViewersCanEdit) {
@@ -192,18 +192,18 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 	}
 
 	if setting.AlertingEnabled && (c.OrgRole == m.ROLE_ADMIN || c.OrgRole == m.ROLE_EDITOR) {
-		alertChildNavs := []*dtos.NavLink{
-			{Text: "Alert Rules", Id: "alert-list", Url: setting.AppSubUrl + "/alerting/list", Icon: "gicon gicon-alert-rules"},
-			{Text: "Notification channels", Id: "channels", Url: setting.AppSubUrl + "/alerting/notifications", Icon: "gicon gicon-alert-notification-channel"},
-		}
+		//alertChildNavs := []*dtos.NavLink{
+		//	{Text: "Alert Rules", Id: "alert-list", Url: setting.AppSubUrl + "/alerting/list", Icon: "gicon gicon-alert-rules"},
+		//	{Text: "Notification channels", Id: "channels", Url: setting.AppSubUrl + "/alerting/notifications", Icon: "gicon gicon-alert-notification-channel"},
+		//}
 
 		data.NavTree = append(data.NavTree, &dtos.NavLink{
-			Text:       "Alerting",
-			SubTitle:   "Alert rules & notifications",
-			Id:         "alerting",
-			Icon:       "gicon gicon-alert",
-			Url:        setting.AppSubUrl + "/alerting/list",
-			Children:   alertChildNavs,
+			Text:     "Alerting",
+			SubTitle: "Alert rules & notifications",
+			Id:       "alerting",
+			Icon:     "gicon gicon-alert",
+			Url:      setting.AppSubUrl + "/d/TXSTREZ/simple-streaming-example",
+			//Children:   alertChildNavs,
 			SortWeight: dtos.WeightAlerting,
 		})
 	}
@@ -317,10 +317,23 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 		Icon:       "gicon gicon-cog",
 		Url:        configNodes[0].Url,
 		SortWeight: dtos.WeightConfig,
-		Children:   configNodes,
+		//Children:   configNodes,
 	})
 
-	if c.IsGrafanaAdmin {
+	data.NavTree = append(data.NavTree, &dtos.NavLink{
+		Text:     "Help",
+		SubTitle: fmt.Sprintf(`%s v%s (%s)`, setting.ApplicationName, setting.BuildVersion, setting.BuildCommit),
+		Id:       "help",
+		Url:      setting.AppSubUrl + "/help",
+		Icon:     "gicon gicon-question",
+		Target:   "_blank",
+		//HideFromMenu: true,
+		SortWeight: dtos.WeightHelp,
+		//Children:     []*dtos.NavLink{},
+	})
+
+	var needToShowAdmin = false
+	if c.IsGrafanaAdmin && needToShowAdmin {
 		adminNavLinks := []*dtos.NavLink{
 			{Text: "Users", Id: "global-users", Url: setting.AppSubUrl + "/admin/users", Icon: "gicon gicon-user"},
 			{Text: "Orgs", Id: "global-orgs", Url: setting.AppSubUrl + "/admin/orgs", Icon: "gicon gicon-org"},
@@ -342,20 +355,9 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 			Icon:         "gicon gicon-shield",
 			Url:          setting.AppSubUrl + "/admin/users",
 			SortWeight:   dtos.WeightAdmin,
-			Children:     adminNavLinks,
+			//Children:     adminNavLinks,
 		})
 	}
-
-	data.NavTree = append(data.NavTree, &dtos.NavLink{
-		Text:         "Help",
-		SubTitle:     fmt.Sprintf(`%s v%s (%s)`, setting.ApplicationName, setting.BuildVersion, setting.BuildCommit),
-		Id:           "help",
-		Url:          "#",
-		Icon:         "gicon gicon-question",
-		HideFromMenu: true,
-		SortWeight:   dtos.WeightHelp,
-		Children:     []*dtos.NavLink{},
-	})
 
 	hs.HooksService.RunIndexDataHooks(&data, c)
 

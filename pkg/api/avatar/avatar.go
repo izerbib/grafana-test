@@ -126,7 +126,7 @@ func newNotFound() *Avatar {
 	avatar := &Avatar{notFound: true}
 
 	// load user_profile png into buffer
-	path := filepath.Join(setting.StaticRootPath, "img", "user_profile.png")
+	path := filepath.Join(setting.StaticRootPath, "img", "outline_person_white_24dp.png")
 
 	if data, err := ioutil.ReadFile(path); err != nil {
 		log.Error(3, "Failed to read user_profile.png, %v", path)

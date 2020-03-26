@@ -8,14 +8,13 @@ export interface Props {
 const TopSectionItem: FC<Props> = props => {
   const { link } = props;
   return (
-    <div className="sidemenu-item dropdown">
+    <div className="sidemenu-item">
       <a className="sidemenu-link" href={link.url} target={link.target}>
         <span className="icon-circle sidemenu-icon">
           <i className={link.icon} />
           {link.img && <img src={link.img} />}
         </span>
       </a>
-      <SideMenuDropDown link={link} />
     </div>
   );
 };

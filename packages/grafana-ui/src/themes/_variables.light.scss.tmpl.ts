@@ -81,8 +81,8 @@ $text-color-emphasis: ${theme.colors.textEmphasis};
 $text-shadow-faint: none;
 
 // gradients
-$brand-gradient-horizontal: linear-gradient(to right, #f05a28 30%, #fbca0a 99%);
-$brand-gradient-vertical: linear-gradient(#f05a28 30%, #fbca0a 99%);
+$brand-gradient-horizontal: linear-gradient(to right, #ffffff 30%, #4693c1 99%);
+$brand-gradient-vertical: linear-gradient(#4693c1 30%, #ffffff 99%);
 $page-gradient: linear-gradient(180deg, $white 10px, $gray-7 100px);
 $edit-gradient: linear-gradient(-60deg, $gray-7, #f5f6f9 70%, $gray-7 98%);
 
@@ -348,14 +348,14 @@ $variable-option-bg: $dropdownLinkBackgroundHover;
 $switch-bg: $white;
 $switch-slider-color: $gray-7;
 $switch-slider-off-bg: $gray-5;
-$switch-slider-on-bg: linear-gradient(90deg, #ff9830, #e55400);
+$switch-slider-on-bg: linear-gradient(90deg, #ffffff, #1e90ff);
 $switch-slider-shadow: 0 0 3px $dark-2;
 
 //Checkbox
 // -------------------------
 $checkbox-bg: $gray-6;
 $checkbox-border: 1px solid $gray-3;
-$checkbox-checked-bg: linear-gradient(0deg, #ff9830, #e55400);
+$checkbox-checked-bg: linear-gradient(0deg, #ffffff, #1e90ff);
 $checkbox-color: $gray-7;
 
 //Panel Edit

@@ -17,12 +17,12 @@ $theme-name: light;
 // -------------------------
 $blue-faint: #f5f9ff;
 $blue-light: #5794f2;
-$blue-base: #3274d9;
-$blue-shade: #1f60c4;
+$blue-base: #42b6f6;
+$blue-shade: #42b6f6;
 $red-base: #e02f44;
 $red-shade: #c4162a;
-$green-base: #3eb15b;
-$green-shade: #369b4f;
+$green-base: #42b6f6;
+$green-shade: #42b6f6;
 $orange-dark: #ed5700;
 
 // Grays
@@ -45,27 +45,27 @@ $white: #ffffff;
 
 // Accent colors
 // -------------------------
-$blue: #0083b3;
+$blue: #42b6f6;
 $red: $red-base;
 $yellow: #ff851b;
-$orange: #ff7941;
+$orange: #1e90ff;
 $purple: #9954bb;
-$variable: #0083b3;
+$variable: #42b6f6;
 
-$brand-primary: #ff7941;
-$brand-success: #3eb15b;
-$brand-warning: #ff7941;
+$brand-primary: #42b6f6;
+$brand-success: #42b6f6;
+$brand-warning: #1e90ff;
 $brand-danger: #e02f44;
 
 $query-red: #e02f44;
-$query-green: #3eb15b;
+$query-green: #42b6f6;
 $query-purple: #9954bb;
-$query-orange: #ff7941;
-$query-keyword: #3274d9;
+$query-orange: #1e90ff;
+$query-keyword: #42b6f6;
 
 // Status colors
 // -------------------------
-$online: #369b4f;
+$online: #42b6f6;
 $warn: #f79520;
 $critical: #c4162a;
 
@@ -84,8 +84,8 @@ $text-color-emphasis: #41444b;
 $text-shadow-faint: none;
 
 // gradients
-$brand-gradient-horizontal: linear-gradient(to right, #f05a28 30%, #fbca0a 99%);
-$brand-gradient-vertical: linear-gradient(#f05a28 30%, #fbca0a 99%);
+$brand-gradient-horizontal: linear-gradient(to right, #ffffff 30%, #4693c1 99%);
+$brand-gradient-vertical: linear-gradient(#4693c1 30%, #ffffff 99%);
 $page-gradient: linear-gradient(180deg, $white 10px, $gray-7 100px);
 $edit-gradient: linear-gradient(-60deg, $gray-7, #f5f6f9 70%, $gray-7 98%);
 
@@ -351,14 +351,14 @@ $variable-option-bg: $dropdownLinkBackgroundHover;
 $switch-bg: $white;
 $switch-slider-color: $gray-7;
 $switch-slider-off-bg: $gray-5;
-$switch-slider-on-bg: linear-gradient(90deg, #ff9830, #e55400);
+$switch-slider-on-bg: linear-gradient(90deg, #ffffff, #1e90ff);
 $switch-slider-shadow: 0 0 3px $dark-2;
 
 //Checkbox
 // -------------------------
 $checkbox-bg: $gray-6;
 $checkbox-border: 1px solid $gray-3;
-$checkbox-checked-bg: linear-gradient(0deg, #ff9830, #e55400);
+$checkbox-checked-bg: linear-gradient(0deg, #ffffff, #1e90ff);
 $checkbox-color: $gray-7;
 
 //Panel Edit

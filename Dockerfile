@@ -1,31 +1,22 @@
-# Golang build container
-FROM golang:1.13.4-alpine
+FROM golang:1.13.4 AS go-builder
 
-RUN apk add --no-cache gcc g++
-
-WORKDIR $GOPATH/src/github.com/grafana/grafana
+WORKDIR /src/grafana
 
 COPY go.mod go.sum ./
-COPY vendor vendor
+COPY vendor vendor/
 
 RUN go mod verify
 
-COPY pkg pkg
 COPY build.go package.json ./
+COPY pkg pkg/
 
 RUN go run build.go build
 
-# Node build container
-FROM node:12.13.0-alpine
+FROM node:12.13 AS js-builder
 
 # PhantomJS
-RUN apk add --no-cache curl &&\
-    cd /tmp && curl -Ls https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz | tar xz &&\
-    cp -R lib lib64 / &&\
-    cp -R usr/lib/x86_64-linux-gnu /usr/lib &&\
-    cp -R usr/share /usr/share &&\
-    cp -R etc/fonts /etc &&\
-    curl -k -Ls https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 | tar -jxf - &&\
+RUN apt-get update && apt-get install -y curl &&\
+    curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 | tar xj &&\
     cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
 
 WORKDIR /usr/src/app/
@@ -33,20 +24,20 @@ WORKDIR /usr/src/app/
 COPY package.json yarn.lock ./
 COPY packages packages
 
-RUN yarn install --pure-lockfile --no-progress
+RUN yarn install --pure-lockfile
 
 COPY Gruntfile.js tsconfig.json .eslintrc .browserslistrc ./
-COPY public public
+COPY public public 
 COPY scripts scripts
 COPY emails emails
 
 ENV NODE_ENV production
 RUN ./node_modules/.bin/grunt build
 
-# Final container
-FROM alpine:3.10
+FROM ubuntu:18.10
 
 LABEL maintainer="Grafana team <hello@grafana.com>"
+EXPOSE 3000
 
 ARG GF_UID="472"
 ARG GF_GID="472"
@@ -61,41 +52,34 @@ ENV PATH="/usr/share/grafana/bin:$PATH" \
 
 WORKDIR $GF_PATHS_HOME
 
-RUN apk add --no-cache ca-certificates bash tzdata && \
-    apk add --no-cache --upgrade --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main openssl musl-utils
+COPY conf conf
 
-COPY conf ./conf
+# We need font libs for phantomjs, and curl should be part of the image
+RUN apt-get update && apt-get upgrade -y && apt-get install -y ca-certificates libfontconfig1 curl
 
 RUN mkdir -p "$GF_PATHS_HOME/.aws" && \
-    addgroup -S -g $GF_GID grafana && \
-    adduser -S -u $GF_UID -G grafana grafana && \
-    mkdir -p "$GF_PATHS_PROVISIONING/datasources" \
+  addgroup --system --gid $GF_GID grafana && \
+  adduser --uid $GF_UID --system --ingroup grafana grafana && \
+  mkdir -p "$GF_PATHS_PROVISIONING/datasources" \
              "$GF_PATHS_PROVISIONING/dashboards" \
              "$GF_PATHS_PROVISIONING/notifiers" \
              "$GF_PATHS_LOGS" \
              "$GF_PATHS_PLUGINS" \
              "$GF_PATHS_DATA" && \
-    cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG" && \
-    cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
+    cp conf/sample.ini "$GF_PATHS_CONFIG" && \
+    cp conf/ldap.toml /etc/grafana/ldap.toml && \
     chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING" && \
     chmod -R 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING"
 
 # PhantomJS
-COPY --from=1 /tmp/lib /lib
-COPY --from=1 /tmp/lib64 /lib64
-COPY --from=1 /tmp/usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
-COPY --from=1 /tmp/usr/share /usr/share
-COPY --from=1 /tmp/etc/fonts /etc/fonts
-COPY --from=1 /usr/local/bin/phantomjs /usr/local/bin
+COPY --from=js-builder /usr/local/bin/phantomjs /usr/local/bin/
 
-COPY --from=0 /go/src/github.com/grafana/grafana/bin/linux-amd64/grafana-server /go/src/github.com/grafana/grafana/bin/linux-amd64/grafana-cli ./bin/
-COPY --from=1 /usr/src/app/public ./public
-COPY --from=1 /usr/src/app/tools ./tools
-COPY tools/phantomjs/render.js ./tools/phantomjs/render.js
+COPY --from=go-builder /src/grafana/bin/linux-amd64/grafana-server /src/grafana/bin/linux-amd64/grafana-cli bin/
+COPY --from=js-builder /usr/src/app/public public
+COPY --from=js-builder /usr/src/app/tools tools
 
-EXPOSE 3000
-
-COPY ./packaging/docker/run.sh /run.sh
+COPY tools/phantomjs/render.js tools/phantomjs/
+COPY packaging/docker/run.sh /
 
 USER grafana
 ENTRYPOINT [ "/run.sh" ]

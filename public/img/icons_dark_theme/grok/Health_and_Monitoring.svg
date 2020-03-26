@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Health_and_Monitoring</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Health_and_Monitoring" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#000000" opacity="0" x="0" y="0" width="22" height="22"></rect>
+        <g id="assessment-24px">
+            <path d="M17.4166667,2.75 L4.58333333,2.75 C3.575,2.75 2.75,3.575 2.75,4.58333333 L2.75,17.4166667 C2.75,18.425 3.575,19.25 4.58333333,19.25 L17.4166667,19.25 C18.425,19.25 19.25,18.425 19.25,17.4166667 L19.25,4.58333333 C19.25,3.575 18.425,2.75 17.4166667,2.75 Z M8.25,15.5833333 L6.41666667,15.5833333 L6.41666667,9.16666667 L8.25,9.16666667 L8.25,15.5833333 Z M11.9166667,15.5833333 L10.0833333,15.5833333 L10.0833333,6.41666667 L11.9166667,6.41666667 L11.9166667,15.5833333 Z M15.5833333,15.5833333 L13.75,15.5833333 L13.75,11.9166667 L15.5833333,11.9166667 L15.5833333,15.5833333 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <polygon id="Path" points="0 0 22 0 22 22 0 22"></polygon>
+        </g>
+    </g>
+</svg>

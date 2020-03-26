@@ -14,7 +14,7 @@ export const commonColorsPalette = {
 
   // New blues palette used by next-gen form elements
   blue95: '#5794f2',
-  blue85: '#3274d9',
+  blue85: '#42b6f6',
   blue77: '#1f60c4',
 
   // New reds palette used by next-gen form elements

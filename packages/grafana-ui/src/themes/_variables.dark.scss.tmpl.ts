@@ -89,8 +89,8 @@ $text-shadow-faint: 1px 1px 4px rgb(45, 45, 45);
 $textShadow: none;
 
 // gradients
-$brand-gradient-horizontal: linear-gradient(to right, #f05a28 30%, #fbca0a 99%);
-$brand-gradient-vertical: linear-gradient(#f05a28 30%, #fbca0a 99%);
+$brand-gradient-horizontal: linear-gradient(to right, #ffffff 30%, #4693c1 99%);
+$brand-gradient-vertical: linear-gradient(#4693c1 30%, #ffffff 99%);
 $page-gradient: linear-gradient(180deg, $dark-5 10px, dark-2 100px);
 $edit-gradient: linear-gradient(180deg, $dark-2 50%, $input-black);
 
@@ -355,14 +355,14 @@ $variable-option-bg: $dropdownLinkBackgroundHover;
 $switch-bg: $input-bg;
 $switch-slider-color: $dark-3;
 $switch-slider-off-bg: $gray-1;
-$switch-slider-on-bg: linear-gradient(90deg, #eb7b18, #d44a3a);
+$switch-slider-on-bg: linear-gradient(90deg, #ffffff, #1e90ff);
 $switch-slider-shadow: 0 0 3px black;
 
 //Checkbox
 // -------------------------
 $checkbox-bg: $dark-1;
 $checkbox-border: 1px solid $gray-1;
-$checkbox-checked-bg: linear-gradient(0deg, #eb7b18, #d44a3a);
+$checkbox-checked-bg: linear-gradient(0deg, #ffffff, #1e90ff);
 $checkbox-color: $dark-1;
 
 //Panel Edit
@@ -388,7 +388,7 @@ $panel-grid-placeholder-shadow: 0 0 4px $blue-shade;
 $logs-color-unkown: $gray-2;
 
 // toggle-group
-$button-toggle-group-btn-active-bg: linear-gradient(90deg, #eb7b18, #d44a3a);
+$button-toggle-group-btn-active-bg: linear-gradient(90deg, #ffffff, #1e90ff);
 $button-toggle-group-btn-active-shadow: inset 0 0 4px $black;
 $button-toggle-group-btn-seperator-border: 1px solid $dark-2;
 

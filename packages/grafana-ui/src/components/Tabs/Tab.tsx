@@ -56,7 +56,7 @@ const getTabStyles = stylesFactory((theme: GrafanaTheme) => {
         right: 0;
         height: 2px;
         top: 0;
-        background-image: linear-gradient(to right, #f05a28 30%, #fbca0a 99%);
+        background-image: linear-gradient(to right, #ffffff 30%, #42b6f6 99%);
       }
     `,
   };

@@ -1,5 +1,4 @@
-{
-  "links": [],
+
   "panels": [
     {
       "content": "<div class=\"dashboard-header\">\n  <span>Welcome to Grafana</span>\n</div>",

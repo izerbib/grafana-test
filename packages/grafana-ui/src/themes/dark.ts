@@ -23,20 +23,20 @@ const basicColors = {
   gray6: '#f4f5f8', // not used in dark theme
   gray7: '#fbfbfb', // not used in dark theme
   grayBlue: '#212327',
-  blueBase: '#3274d9',
-  blueShade: '#1f60c4',
+  blueBase: '#42b6f6',
+  blueShade: '#42b6f6',
   blueLight: '#5794f2',
   blueFaint: '#041126',
   redBase: '#e02f44',
   redShade: '#c4162a',
-  greenBase: '#299c46',
-  greenShade: '#23843b',
-  blue: '#33b5e5',
+  greenBase: '#42b6f6',
+  greenShade: '#42b6f6',
+  blue: '#42b6f6',
   red: '#d44a3a',
   yellow: '#ecbb13',
   purple: '#9933cc',
   variable: '#32d1df',
-  orange: '#eb7b18',
+  orange: '#1e90ff',
   orangeDark: '#ff780a',
 };
 
